@@ -48,8 +48,6 @@ public:
         for (int i = 0; i < 8; ++i) board[8][i] = "p";
         
         
-		//최초의 움직이기
-        
         
     }
     
