@@ -22,6 +22,6 @@ int main() {
     ChessBoard chess_game_board;
     chess_game_board.printBoard();
 
-    
+    //
     return 0;
 }
