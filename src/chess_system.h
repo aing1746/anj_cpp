@@ -1,9 +1,0 @@
-
-class chesssystem {
-    private:
-        
-
-    public:
-
-
-};
