@@ -3,7 +3,7 @@
 #include <string>
 #include <algorithm>
 #include <limits>
-
+#include <utility>
 
 using namespace std;
 
@@ -11,9 +11,14 @@ using namespace std;
 class ChessBoard {
 private:
     vector<vector<string>> board;
+    std::vector<std::pair<int, int>> knight_moves(int x, int y) {
+    std::vector<std::pair<int, int>> moves;
+    int a_values[] = {-2, -1, 1, 2};
+    int b_values[] = {-2, -1, 1, 2};}
     int num1, num2, num3, num4;
     string mal;
     int menu;
+    
 
 public:
     ChessBoard() {
@@ -23,7 +28,7 @@ public:
         /*
         R N B Q K B N R | 1 
         P P P P P P P P | 2 
-        . . . . . . . . | 3 
+        . . . . . . . . | 3     (7,1) -> (6, 3) -> (4, 4), (5, 5), (7, 5), (8, 4)
         . . . . . . . . | 4 
         . . . . . . . . | 5 
         . . . . . . . . | 6 
@@ -64,7 +69,7 @@ public:
 
     }
 
-void PrintBoard() {
+void printBoard() {
     for (int i = 0; i < 10; ++i) {
         for (int j = 0; j < 10; ++j) {
             cout << board[i][j] << " ";
@@ -89,7 +94,7 @@ void Move_mal() {
             cout << "The space you want.\n";
 
             
-            if (cin >> num1 >> num2 >> num3 >> num4) {
+            if (cin >> num2 >> num1 >> num4 >> num3) {
                 
                 // 말끼리 서로 바뀌지 않게하기 
                 if (board[num3-1][num4-1] != ".") {}
@@ -100,7 +105,12 @@ void Move_mal() {
                     {
                         std::swap(board[num1-1][num2-1], board[num3-1][num4-1]); 
                     } else {}
-                } else {}
+                } else {
+                    if (num3 - num1 == 1) {
+                        std::swap(board[num1-1][num2-1], board[num3-1][num4-1]); 
+                    } else {}
+                } 
+
 
                 // R의 자리 이동                
                 if (board[num1-1][num2-1] == "R") {
@@ -110,10 +120,36 @@ void Move_mal() {
 
                 } else {}
 
-                //N의 자리 이동
-                if (board[num1-1][num2-1] == "N") {
-                    
-                } else {}
+
+                // //N의 자리 이동 [-2, -1, 1, 2] =! [-2, -1, 1, 2]
+                // if (board[num1-1][num2-1] == "N") {
+                //     if () {
+                //     } else {
+                //         std::swap(board[num1-1][num2-1], board[num3-1][num4-1]); 
+                //     }
+                // } else {}
+
+                //B의 자리 이동
+                if (board[num1-1][num2-1] == "B") {
+                    if (num1 - num3 == num2 - num4 || num3 - num1 == num4 - num2) {
+                        std::swap(board[num1-1][num2-1], board[num3-1][num4-1]); 
+                    //cout << num1 - num3 << "," << num2 - num4 << "\n";
+                    } else {}
+                }
+
+                //Q의 자리 이동
+                if (board[num1-1][num2-1] == "Q") {
+                    if ((num1 == num3 || num2 == num4) || (num1 - num3 == num2 - num4 || num3 - num1 == num4 - num2)) {
+                        std::swap(board[num1-1][num2-1], board[num3-1][num4-1]);
+                    }
+                }
+
+                //K의 자리 이동
+                if (board[num1-1][num2-1] == "K") {
+                    if (num3 && num4 < 2) {
+                        std::swap(board[num1-1][num2-1], board[num3-1][num4-1]);
+                    } else {}
+                }
 
                 for (int i = 0; i < 10; ++i) {
                     for (int j = 0; j < 10; ++j) {
@@ -138,7 +174,7 @@ void Move_mal() {
 
 int main() {
     ChessBoard chess_game_board;
-    chess_game_board.PrintBoard();
+    chess_game_board.printBoard();
     chess_game_board.Move_mal();
     
     return 0;
