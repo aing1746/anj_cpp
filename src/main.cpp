@@ -64,7 +64,7 @@ public:
 
     }
 
-void printBoard() {
+void PrintBoard() {
     for (int i = 0; i < 10; ++i) {
         for (int j = 0; j < 10; ++j) {
             cout << board[i][j] << " ";
@@ -138,7 +138,7 @@ void Move_mal() {
 
 int main() {
     ChessBoard chess_game_board;
-    chess_game_board.printBoard();
+    chess_game_board.PrintBoard();
     chess_game_board.Move_mal();
     
     return 0;
