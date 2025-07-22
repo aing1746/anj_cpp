@@ -15,16 +15,16 @@ private:
     int menu;
     vector<string> teamW;
     vector<string> teamB;
-    
+
     public:
     ChessBoard() {
         // 8x8 보드 생성 및 초기화
         board = vector<vector<string>>(10, vector<string>(10, " "));
-        
+
         /*
         R N B Q K B N R | 1 
         P P P P P P P P | 2 
-        . . . . . . . . | 3     (7,1) -> (6, 3) -> (4, 4), (5, 5), (7, 5), (8, 4)
+        . . . . . . . . | 3     
         . . . . . . . . | 4 
         . . . . . . . . | 5 
         . . . . . . . . | 6 
@@ -33,7 +33,7 @@ private:
         - - - - - - - - | - 
         1 2 3 4 5 6 7 8 |  
         */
-       
+
        // 체크무늬 패턴
        for (int i = 0; i < 10; ++i) {
            for (int j = 0; j < 10; ++j) {
@@ -47,27 +47,27 @@ private:
         board[9] = {"1", "2", "3", "4", "5", "6", "7", "8","", ""};
         for (int i = 1; i < 9; ++i) {
             board[i - 1][9] = std::to_string(i);}
-            
+
             // _선 표시
             for (int i = 0; i < 10; ++i) board[8][i] = "-";
-            
+
             // |선 표시
             for (int i = 0; i < 10; ++i) board[i][8] = "|";
-            
+
             // 백 기물 배치
             board[0] = {"R", "N", "B", "Q", "K", "B", "N", "R"};
             for (int i = 0; i < 8; ++i) board[1][i] = "P";
-            
-            
+
+
             // 흑 기물 배치
             board[7] = {"r", "n", "b", "q", "k", "b", "n", "r"};
             for (int i = 0; i < 8; ++i) board[6][i] = "p";
-            
+
             teamW = {"R", "N", "B", "Q", "K", "P"};
             teamB = {"r", "n", "b", "q", "k", "p"};
-            
+
         }
-        
+
         void printBoard() {
             for (int i = 0; i < 10; ++i) {
                 for (int j = 0; j < 10; ++j) {
@@ -76,7 +76,7 @@ private:
                 cout << "\n";
             }    
         }
-        
+
         void Move_mal() {
 
     while (true) {
@@ -92,30 +92,33 @@ private:
         } else if (menu == 2) {
             cout << "The space you want.\n";
 
-            
+
             if (cin >> num2 >> num1 >> num4 >> num3) {
-                
+
                 // 말끼리 서로 바뀌지 않게하기 
                 if (board[num3-1][num4-1] != ".") {}
 
                 // P의 자리 이동
                 if (board[num1] == board[2] && "P") {              //P인지 아닌지 구별하기 "R","N","B","Q","K
-                    if (std::find(teamB.begin(), teamB.end(), board[num3-1][num4-1]) == teamB.end()) {            //상대 말 구별하기
-                        std::swap(board[num1-1][num2-1], board[num3-1][num4-1]);
-                        board[num1-1][num2-1] == ".";
-                    
-                    } else {
-                        if (2 < num3 && num3 < 5) {      // 이동 거리 제한
-                            std::swap(board[num1-1][num2-1], board[num3-1][num4-1]); 
-                        }
-                    }    
-                    } else {}
-            
-                } else { 
-                    if (num3 - num1 == 1) {
+
+                    if (2 < num3 && num3 < 5) {      // 이동 거리 제한
                         std::swap(board[num1-1][num2-1], board[num3-1][num4-1]); 
+                    } else {
+                        if (num3 - num1 == 1) {
+                        std::swap(board[num1-1][num2-1], board[num3-1][num4-1]); 
+                        }
+                    }
+                     
                     } else {}
-                } 
+                        
+                if (std::find(teamB.begin(), teamB.end(), board[num3-1][num4-1]) == teamB.end()) {            //상대 말 구별하기
+                    std::swap(board[num1-1][num2-1], board[num3-1][num4-1]);
+                    if (board[num1-1][num2-1] == ".") {
+                        board.at(num1-1).at(num2-1) = '.';
+                    }
+                } else {}
+                
+                } else {} 
 
 
                 // R의 자리 이동                
@@ -169,8 +172,8 @@ private:
                 cin.clear();
                 cin.ignore(numeric_limits<long long>::max(), '\n');
             }
-        
-        
+
+
         }
     }
 
@@ -182,6 +185,6 @@ int main() {
     ChessBoard chess_game_board;
     chess_game_board.printBoard();
     chess_game_board.Move_mal();
-    
+
     return 0;
 }
