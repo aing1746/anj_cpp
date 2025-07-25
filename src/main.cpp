@@ -67,7 +67,7 @@ private:
             teamB = {"r", "n", "b", "q", "k", "p"};
 
         }
-
+        
         void printBoard() {
             for (int i = 0; i < 10; ++i) {
                 for (int j = 0; j < 10; ++j) {
@@ -76,115 +76,117 @@ private:
                 cout << "\n";
             }    
         }
-
+        
         void Move_mal() {
-
-    while (true) {
-        cout << "1. print board: \n2. choose space:\n ";
-        cin >> menu;
-        if (menu == 1) {
-            for (int i = 0; i < 10; ++i) {
-                for (int j = 0; j < 10; ++j) {
-                    cout << board[i][j] << " ";
-                }   
-                cout << "\n";
-            }
-        } else if (menu == 2) {
-            cout << "The space you want.\n";
-
-
-            if (cin >> num2 >> num1 >> num4 >> num3) {
-
+            
+            while (true) {
+                cout << "1. print board: \n2. choose space:\n ";
+                cin >> menu;
+                if (menu == 1) {
+                    for (int i = 0; i < 10; ++i) {
+                        for (int j = 0; j < 10; ++j) {
+                            cout << board[i][j] << " ";
+                        }   
+                        cout << "\n";
+                    }
+                } else if (menu == 2) {
+                    cout << "The space you want.\n";
+                    
+                    
+                if (cin >> num2 >> num1 >> num4 >> num3) {
+                        
                 // 말끼리 서로 바뀌지 않게하기 
                 if (board[num3-1][num4-1] != ".") {}
-
+                
                 // P의 자리 이동
-                if (board[num1] == board[2] && "P") {              //P인지 아닌지 구별하기 "R","N","B","Q","K
-
-                    if (2 < num3 && num3 < 5) {      // 이동 거리 제한
-                        std::swap(board[num1-1][num2-1], board[num3-1][num4-1]); 
+                    if (board[num1] == board[2] && "P") {              //P인지 아닌지 구별하기 "R","N","B","Q","K
+                    
+                        if (2 < num3 && num3 < 5) {      // 이동 거리 제한
+                            std::swap(board[num1-1][num2-1], board[num3-1][num4-1]); 
+                        } 
                     } else {
-                        if (num3 - num1 == 1) {
+                        
+                        if (num1 - num3 <= 0) {}                   // 역행 막기
+                        
+                        if (num3 - num1 == 1 && std::find(teamB.begin(), teamB.end(), board[num1-1][num2-1]) == teamB.end() && board[num3-1][num4-1] == ".") {   // 폰의 한칸 이동
                         std::swap(board[num1-1][num2-1], board[num3-1][num4-1]); 
                         }
-                    }
-                     
-                    } else {}
                         
-                if (std::find(teamB.begin(), teamB.end(), board[num3-1][num4-1]) == teamB.end()) {            //상대 말 구별하기
-                    std::swap(board[num1-1][num2-1], board[num3-1][num4-1]);
-                    if (board[num1-1][num2-1] == ".") {
-                        board.at(num1-1).at(num2-1) = '.';
+                        if (std::find(teamB.begin(), teamB.end(), board[num1-1][num2-1]) == teamB.end() && num1-num3==num2-num4&&num3-num1==num4-num2) {            //상대 말 구별하기
+                            std::swap(board[num1-1][num2-1], board[num3-1][num4-1]);
+                            if (board[num1-1][num2-1] != ".") {
+                                board[num1-1][num2-1] = '.';
+                            }
+                        }
                     }
-                } else {}
                 
-                } else {} 
-
-
-                // R의 자리 이동                
-                if (board[num1-1][num2-1] == "R") {
-                    if (num1 == num3 || num2 == num4) {
-                        std::swap(board[num1-1][num2-1], board[num3-1][num4-1]); 
+                
+                
+                
+                    // R의 자리 이동                
+                    if (board[num1-1][num2-1] == "R") {
+                        if (num1 == num3 || num2 == num4) {
+                            std::swap(board[num1-1][num2-1], board[num3-1][num4-1]); 
+                        } else {}
                     } else {}
-
-                } else {}
-
-
+                
+                
                 // //N의 자리 이동 [-2, -1, 1, 2] =! [-2, -1, 1, 2]
                 // if (board[num1-1][num2-1] == "N") {
-                //     if () {
-                //     } else {
-                //         std::swap(board[num1-1][num2-1], board[num3-1][num4-1]); 
-                //     }
-                // } else {}
-
-                //B의 자리 이동
-                if (board[num1-1][num2-1] == "B") {
-                    if (num1 - num3 == num2 - num4 || num3 - num1 == num4 - num2) {
-                        std::swap(board[num1-1][num2-1], board[num3-1][num4-1]); 
-                    } else {}
-                }
-
-                //Q의 자리 이동
-                if (board[num1-1][num2-1] == "Q") {
-                    if ((num1 == num3 || num2 == num4) || (num1 - num3 == num2 - num4 || num3 - num1 == num4 - num2)) {
-                        std::swap(board[num1-1][num2-1], board[num3-1][num4-1]);
+                    //     if () {
+                        //     } else {
+                            //         std::swap(board[num1-1][num2-1], board[num3-1][num4-1]); 
+                            //     }
+                            // } else {}
+                            
+                        //B의 자리 이동
+                        if (board[num1-1][num2-1] == "B") {
+                            if (num1 - num3 == num2 - num4 || num3 - num1 == num4 - num2) {
+                                std::swap(board[num1-1][num2-1], board[num3-1][num4-1]); 
+                            } else {}
+                        }
+                            
+                        //Q의 자리 이동
+                        if (board[num1-1][num2-1] == "Q") {
+                            if ((num1 == num3 || num2 == num4) || (num1 - num3 == num2 - num4 || num3 - num1 == num4 - num2)) {
+                                std::swap(board[num1-1][num2-1], board[num3-1][num4-1]);
+                            }
+                        }
+                                
+                        //K의 자리 이동
+                        if (board[num1-1][num2-1] == "K") {
+                                if (num3 && num4 < 2) {
+                                    std::swap(board[num1-1][num2-1], board[num3-1][num4-1]);
+                                } else {}
+                            }
+                        } else {} 
+                            
+                        for (int i = 0; i < 10; ++i) {
+                            for (int j = 0; j < 10; ++j) {
+                                cout << board[i][j] << " ";
+                            }
+                            cout << "\n";
+                        }
+                        } else {
+                            cout << "string! try again." << endl;
+                            
+                            // cin의 쓰래기값을 지움
+                            cin.clear();
+                            cin.ignore(numeric_limits<long long>::max(), '\n');
+                        }
+                        
+                        
                     }
                 }
-
-                //K의 자리 이동
-                if (board[num1-1][num2-1] == "K") {
-                    if (num3 && num4 < 2) {
-                        std::swap(board[num1-1][num2-1], board[num3-1][num4-1]);
-                    } else {}
-                }
-
-                for (int i = 0; i < 10; ++i) {
-                    for (int j = 0; j < 10; ++j) {
-                        cout << board[i][j] << " ";
-                    }
-                    cout << "\n";
-                }
-            } else {
-                cout << "string! try again." << endl;
-
-                // cin의 쓰래기값을 지움
-                cin.clear();
-                cin.ignore(numeric_limits<long long>::max(), '\n');
+                
+                
+            };
+            
+            
+            int main() {
+                ChessBoard chess_game_board;
+                chess_game_board.printBoard();
+                chess_game_board.Move_mal();
+                
+                return 0;
             }
-
-
-        }
-    }
-
-
-};
-
-
-int main() {
-    ChessBoard chess_game_board;
-    chess_game_board.printBoard();
-    chess_game_board.Move_mal();
-
-    return 0;
-}
