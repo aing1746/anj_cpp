@@ -15,6 +15,7 @@ private:
     int menu;
     vector<string> teamW;
     vector<string> teamB;
+    int P_change;
 
     public:
     ChessBoard() {
@@ -119,6 +120,10 @@ private:
                             if (board[num1-1][num2-1] != ".") {
                                 board[num1-1][num2-1] = '.';
                             }
+                        }
+
+                        if (board[num1] == board[8] && "P") {
+                            
                         }
                     }
                 
