@@ -153,9 +153,8 @@ private:
                         if (num1 - num3 == num2 - num4 || num3 - num1 == num4 - num2 || num3 - num1 == num2 - num4 || num3 - num1 == num2 - num4) {
                             std::swap(board[num1-1][num2-1], board[num3-1][num4-1]); 
                         }
-                    } 
-                    else if (board[num1-1][num2-1] == "B" && std::find(teamB.begin(), teamB.end(), board[num1-1][num2-1]) == teamB.end() && board[num3-1][num4-1] == ".") {
-                            if (std::find(teamB.begin(), teamB.end(), board[num3-1][num4-1]) == teamB.end()) {            //상대 말 구별하기
+                    } else if (board[num1-1][num2-1] == "B") {
+                            if (std::find(teamB.begin(), teamB.end(), board[num1-1][num4-1]) == teamB.end() && num1 - num3 == num2 - num4 || num3 - num1 == num4 - num2 || num3 - num1 == num2 - num4 || num3 - num1 == num2 - num4) {            //상대 말 구별하기
                                 std::swap(board[num1-1][num2-1], board[num3-1][num4-1]);
                                 if (board[num1-1][num2-1] != ".") {
                                     board[num1-1][num2-1] = '.';
@@ -165,11 +164,18 @@ private:
                             
 
                     //Q의 자리 이동
-                    if (board[num1-1][num2-1] == "Q") {
-                        if ((num1 == num3 || num2 == num4) || (num1 - num3 == num2 - num4 || num3 - num1 == num4 - num2)) {
+                    if (board[num1-1][num2-1] == "Q" && std::find(teamB.begin(), teamB.end(), board[num1-1][num2-1]) == teamB.end() && board[num3-1][num4-1] == ".") {
+                        if ((num1 == num3 || num2 == num4) || (num1 - num3 == num2 - num4 || num3 - num1 == num4 - num2 || num3 - num1 == num2 - num4 || num3 - num1 == num2 - num4)) {
                             std::swap(board[num1-1][num2-1], board[num3-1][num4-1]);
                         }
-                    }
+                    } else if (board[num1-1][num2-1] == "Q") {
+                            if (std::find(teamB.begin(), teamB.end(), board[num1-1][num4-1]) == teamB.end() || (num1 == num3 || num2 == num4) || (num1 - num3 == num2 - num4 || num3 - num1 == num4 - num2 || num3 - num1 == num2 - num4 || num3 - num1 == num2 - num4)) {            //상대 말 구별하기
+                                std::swap(board[num1-1][num2-1], board[num3-1][num4-1]);
+                                if (board[num1-1][num2-1] != ".") {
+                                    board[num1-1][num2-1] = '.';
+                                }
+                            }   
+                        }
                         
                         
                     //K의 자리 이동
