@@ -179,11 +179,18 @@ private:
                         
                         
                     //K의 자리 이동
-                    if (board[num1-1][num2-1] == "K") {
+                    if (board[num1-1][num2-1] == "K"&& std::find(teamB.begin(), teamB.end(), board[num1-1][num4-1]) == teamB.end()) {
                             if (num3 - num1 == 1 || num4 - num2 == 1 || num1 - num3 == 1 || num2 - num4 == 1) {
                                 std::swap(board[num1-1][num2-1], board[num3-1][num4-1]);
                             } else {}
-                    }
+                    } else if (board[num1-1][num2-1] == "K") {
+                            if (std::find(teamB.begin(), teamB.end(), board[num1-1][num4-1]) == teamB.end() || (num3 - num1 == 1 || num4 - num2 == 1 || num1 - num3 == 1 || num2 - num4 == 1)) {            //상대 말 구별하기
+                                std::swap(board[num1-1][num2-1], board[num3-1][num4-1]);
+                                if (board[num1-1][num2-1] != ".") {
+                                    board[num1-1][num2-1] = '.';
+                                }
+                            }   
+                        }
 
                     } else {} 
                             
