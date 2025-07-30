@@ -16,6 +16,8 @@ private:
     vector<string> teamW;
     vector<string> teamB;
     char P_mode;
+    char target_K = 'K';
+    char target_k = 'k';
 
     public:
     ChessBoard() {
@@ -222,6 +224,17 @@ private:
                                 }
                             }   
                         }
+
+
+                    for (int i = 0; i < 8; ++i) {
+                            for (int j = 0; j < 8; ++j) {
+                                if (board[i][j] != "K") {
+                                    break;
+                                }
+                            }
+                        } 
+
+
 
                     } else {} 
                             
