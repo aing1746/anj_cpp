@@ -15,7 +15,7 @@ private:
     int menu;
     vector<string> teamW;
     vector<string> teamB;
-    int P_change;
+    char P_mode;
 
     public:
     ChessBoard() {
@@ -121,10 +121,36 @@ private:
                                 board[num1-1][num2-1] = '.';
                             }
                         }
+                    }
+                    
+                    if (board[num3] == board[8] && board[num3-1][num4-1] == "P") {            // P의 말 변경
+                                                
+                        if (cin >> P_mode) {
+                            if (P_mode == 'R') {
+                                if (board[num1-1][num2-1] != "R") {
+                                    board[num1-1][num2-1] = 'R';
+                                }
+                            }
 
-                        if (board[num1] == board[8] && "P") {
+                            if (P_mode == 'B') {
+                                if (board[num1-1][num2-1] != "B") {
+                                    board[num1-1][num2-1] = 'B';
+                                }
+                            }
                             
+                            if (P_mode == 'N') {
+                                if (board[num1-1][num2-1] != "N") {
+                                    board[num1-1][num2-1] = 'N';
+                                }
+                            }
+
+                            if (P_mode == 'Q') {
+                                if (board[num1-1][num2-1] != "Q") {
+                                    board[num1-1][num2-1] = 'Q';
+                                }
+                            }
                         }
+
                     }
                 
 
