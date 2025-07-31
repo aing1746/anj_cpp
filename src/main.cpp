@@ -170,6 +170,21 @@ private:
                                 }
                             }   
                         }
+                    
+                    // r의 자리 이동                
+                    if (board[num1-1][num2-1] == "r" && std::find(teamW.begin(), teamW.end(), board[num1-1][num2-1]) == teamW.end() && board[num3-1][num4-1] == ".") {
+                        if (num1 == num3 || num2 == num4) {
+                            std::swap(board[num1-1][num2-1], board[num3-1][num4-1]); 
+                        }
+                        
+                    } else if (board[num1-1][num2-1] == "r") {
+                            if (std::find(teamW.begin(), teamW.end(), board[num3-1][num4-1]) == teamW.end() || num1 == num3 || num2 == num4 ) {            //상대 말 구별하기
+                                std::swap(board[num1-1][num2-1], board[num3-1][num4-1]);
+                                if (board[num1-1][num2-1] != ".") {
+                                    board[num1-1][num2-1] = '.';
+                                }
+                            }   
+                        }
                 
 
                     // //N의 자리 이동 [-2, -1, 1, 2] =! [-2, -1, 1, 2]
@@ -223,18 +238,11 @@ private:
                                     board[num1-1][num2-1] = '.';
                                 }
                             }   
-                        }
-
-
-                    for (int i = 0; i < 8; ++i) {
-                            for (int j = 0; j < 8; ++j) {
-                                if (board[i][j] != "K") {
-                                    break;
-                                }
-                            }
                         } 
-
-
+                    if (std::find(teamW.begin(), teamW.end(), board[num3-1][num4-1]) == teamW.end() && board[num3][num4] == "K") {
+                        cout << "킹 죽음 게임 끝!" << "\n";
+                        break;
+                    }
 
                     } else {} 
                             
